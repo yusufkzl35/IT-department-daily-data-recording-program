@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Erenbook.Models.PersonelAccesID>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_erenbook.cshtml";
+}
+
+<br />
+<h2>Access Kapı Giriş Id Numaraları</h2>
+
+<br />
+
+
+<section class="content">
+    <div class="container-fluid">
+       
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Line chart -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="far fa-chart-bar"></i>
+                            <b>AD SOYAD VE ACCESS NUMARALARI</b> 
+                        </h3>
+
+                        <div class="card-tools">
+                           
+                          
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="line-chart">
+                            <table  border="2">
+
+                                <thead>
+                                    <tr>
+
+                                        <td width="250" align="center"><b>Ad Soyad</b></td>
+                                        <td width="100" align="center"><b>Access No</b></td>
+
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td width="250" align="center"> @item.AdSoyad</td>
+                                            <td width="100" align="center">
+                                                @item.AccesId
+                                            </td>
+
+
+                                            <!--  <td>
+                        @Html.ActionLink("Güncelle", "guncelle", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+                    </td> -->
+                                        </tr>
+
+                                    </tbody>
+
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body-->
+                </div>
+                <!-- /.card -->
+                <!-- Area chart -->
+               
+
+            </div>
+            <!-- /.col -->
+
+            <div class="col-md-6">
+                <!-- Bar chart -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="far fa-chart-bar"></i>
+                            <b>KAPI GİRİŞ NUMARALARI</b> 
+                        </h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="bar-chart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.card-body-->
+                </div>
+                <!-- /.card -->
+                <!-- Donut chart -->
+               
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>

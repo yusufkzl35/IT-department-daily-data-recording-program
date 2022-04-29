@@ -1,0 +1,135 @@
+﻿@model Erenbook.Models.Gunluk
+
+@{
+    ViewBag.Title = "ekle";
+    Layout = "~/Views/Shared/_erenbook.cshtml";
+}
+
+<br />
+<h2>Günlük Yapılan İş</h2>
+
+<div id="printableArea">
+    <div class="panel-body">
+
+
+
+
+        <br />
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+
+
+
+                    @using (Html.BeginForm("ekle", "Gunluk", FormMethod.Post))
+                    {
+                        <br />
+                        <table border="1">
+
+                            <tr>
+                                <td width=200 height="35" colspan="3" align=center valign=middle><b>İŞLEM BAŞLANGIÇ TARİHİ</b></td>
+
+                                <td width=100 colspan="1" align="center" valign=middle>  @Html.EditorFor(x => x.TarihBaslangic, new { @class = "form-control" })</td>
+
+
+                                <td width=200 height="35" colspan="3" align=center valign=middle><b>İŞLEM BAŞLANGIÇ SAATİ</b></td>
+
+                                <td width=100 colspan="1" align="center" valign=middle>  @Html.TextBoxFor(x => x.Ilk1, new { @class = "form-control" })</td>
+                            </tr>
+
+                            <tr>
+                                <td width=300 height="35" colspan="4" align=center valign=middle><b>ADI SOYADI</b></td>
+                                <td width=300 height="35" colspan="4" align=center valign=middle><b>DEPARTMANI</b></td>
+                            </tr>
+                            <tr>
+                                <td width=300 height="35" colspan="4" align=center valign=middle> @Html.TextBoxFor(x => x.AdSoyad, new { @class = "form-control" })</td>
+                                <td width=300 height="35" colspan="4" align=center valign=middle> @Html.TextBoxFor(x => x.Bolum, new { @class = "form-control" })</td>
+                            </tr>
+
+                            <tr>
+                                <td width=200 height="35" colspan="2" align=center valign=middle> <b>ARIZA TÜRÜ</b></td>
+                                <td width=400 height="35" colspan="6" align=center valign=middle>
+                                    @Html.DropDownListFor(
+                                  x => x.ArizaTuru,
+                                  new SelectList(new List<Object>
+
+{
+new { value = 0 , text = ""},
+new { value = 1 , text = "Kullanıcı Desteği"  },
+new { value = 2 , text = "Yazılım/Donanım Kaynaklı Arıza"  },
+new { value = 3 , text = "Donanım Kaynaklı Arıza"
+}
+
+
+}, "text", "text"), new { @class = "form-control" })
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width=200 height="35" colspan="2" align=center valign=middle> <b>Kullanılan Malzeme</b></td>
+                                <td width=300 height="35" colspan="6" align=center valign=middle> @Html.TextBoxFor(x => x.Donanım, new { @class = "form-control" })</td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td width=200 height="35" colspan="3" align=center valign=middle><b>İŞLEM BİTİŞ TARİHİ</b></td>
+
+                                <td width=100 colspan="1" align="center" valign=middle>  @Html.EditorFor(x => x.TarihBitis, new { @class = "form-control" })</td>
+
+
+                                <td width=200 height="35" colspan="3" align=center valign=middle><b>İŞLEM BİTİŞ SAATİ</b></td>
+
+                                <td width=100 colspan="1" align="center" valign=middle>  @Html.TextBoxFor(x => x.Son1, new { @class = "form-control" })</td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td width=600 height="35" colspan="8" align=center valign=middle> <b>YAPILAN İŞLEM</b></td>
+                            </tr>
+
+
+                            <tr>
+
+                                <td width=600 height="35" colspan="8" align="center" valign=middle> @Html.TextAreaFor(x => x.YapilanIslem, new { @class = "form-control" })</td>
+
+
+                            </tr>
+
+                        </table>
+
+                        <br />
+                        <button class="btn btn-success">Kaydet</button>
+
+                    }
+
+
+
+
+
+       
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div>
+    @Html.ActionLink("Geri Dön", "Index")
+</div>

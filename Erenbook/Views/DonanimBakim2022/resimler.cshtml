@@ -1,0 +1,190 @@
+﻿
+@model IEnumerable<Erenbook.Models.SayfaResimleri2>
+@{
+    ViewBag.Title = "resimler";
+
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="~/flaty/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/flaty/assets/font-awesome/css/font-awesome.min.css">
+
+    <!--page specific css styles-->
+    <link rel="stylesheet" href="~/flaty/assets/prettyPhoto/css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" href="~/flaty/assets/chosen-bootstrap/chosen.min.css" />
+
+    <!--flaty css styles-->
+    <link rel="stylesheet" href="~/flaty/css/flaty.css">
+    <link rel="stylesheet" href="~/flaty/css/flaty-responsive.css">
+
+    <link rel="shortcut icon" href="~/flaty/img/favicon.html">
+
+</head>
+
+
+<body>
+    <div class="pull-left">
+        <div class="btn-toolbar">
+            @Html.ActionLink("Geri", "Index", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <div class="box-content">
+        <div class="clearfix">
+            <div class="pull-left">
+
+            </div>
+            <div class="pull-right">
+                <div class="btn-toolbar">
+
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>Form</h2>
+        <p>
+            <span class="label label-default pull-left" style="padding: 5px;">
+                <input type="checkbox" id="hepsiniSec">&nbsp;Tümünü Seç
+            </span>
+
+            @Html.ActionLink("Form Ekle", "resimekle", new { sayfaid = @Request.Params["sayfaid"] }, new { @class = "btn btn-success pull-right" }) <br /><br />
+        </p>
+
+        <div class="row" style="margin-bottom: 20px;">
+            <ul class="gallery">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a href="~/Content/images/@Html.DisplayFor(modelItem => item.resimadi)" rel="prettyPhoto" title="@item.resimadi">
+
+                            <div class="col-md-12  col-xs-6" id="resim-@item.id" style="padding: 10px; margin: 10px;">
+                                <input type="checkbox" class="checkBox" value="@item.id" /><br />
+                                <img src="~/Content/images/@Html.DisplayFor(modelItem => item.resimadi)" alt="Pdf Veya Office Dosyaları" class="img-responsive img-thumbnail" style="height: 150px;" />
+                            </div>
+
+
+
+                        </a>
+                    </li>
+
+                }
+
+
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- END Main Content -->
+
+
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- END Content -->
+
+
+
+
+
+
+    <div class="pull-left">
+        <input type="button" id="sil" value="Sil" class="btn btn-danger" />
+    </div>
+
+
+
+
+    <script>
+    $(document).ready(function () {
+        //Tümünü Seç butonu için
+        $("#hepsiniSec").click(function () {
+            $(".checkBox").prop('checked', $(this).prop('checked'));
+            $(".checkBox").each(function () {
+                if ($(this).prop('checked')) $(this).parent("div").addClass("bg-success");
+                else
+                    $(this).parent("div").removeClass("bg-success");
+            });
+        });
+        //CheckBox seçimleri için
+        $('input:checkbox.checkBox').click(function () {
+            if ($(this).prop('checked'))
+                $(this).parent("div").addClass("bg-success");
+            else
+                $(this).parent("div").removeClass("bg-success");
+        });
+
+        //Resim Sil butonu için
+        $("#sil").click(function () {
+            var secili = new Array();
+            $('input:checkbox.checkBox').each(function () {
+                if ($(this).prop('checked')) {
+                    secili.push($(this).val());
+                }
+            });
+            if (secili.length <= 0)
+            {
+                alert("Seçili Dosya Yok!");
+            }
+            else {
+                var check = confirm("Dosyaları silmeyi onaylıyor musunuz?");
+                  if (check == true) {
+                      var options = {};
+                      options.url = '@Url.Action("resimsil", "DonanimBakim2022")';
+                      options.type = "POST";
+                      options.data = JSON.stringify(secili);
+                      options.contentType = "application/json";
+                      options.dataType = "json";
+
+                      options.success = function (msg) {
+                          alert(msg);
+                          //Seçili resimleri ekrandan silen kod
+                          $.each(secili, function (index, value) {
+                              $("#resim-" + value).remove();
+                          });
+                      };
+                      options.error = function () {
+                          alert("Silme işleminde hata oluştu!");
+                      };
+                    $.ajax(options);
+                }
+            }
+        });
+    });
+
+
+    </script>
+
+
+    <script src="../../ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="~/flaty/assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+    <script src="~/flaty/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/flaty/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/flaty/assets/jquery-cookie/jquery.cookie.js"></script>
+
+    <!--page specific plugin scripts-->
+    <script src="~/flaty/assets/prettyPhoto/js/jquery.prettyPhoto.js"></script>
+    <script src="~/flaty/assets/chosen-bootstrap/chosen.jquery.min.js"></script>
+
+    <!--flaty scripts-->
+    <script src="~/flaty/js/flaty.js"></script>
+    <script src="~/flaty/js/flaty-demo-codes.js"></script>
+
+
+
+
+
+
+
+</body>
+
+</html>

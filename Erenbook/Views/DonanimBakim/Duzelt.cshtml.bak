@@ -1,0 +1,116 @@
+﻿@model Erenbook.Models.DonanimBakim
+
+@{
+    ViewBag.Title = "ekle";
+    Layout = "~/Views/Shared/_erenbook.cshtml";
+}
+
+<br />
+<style>
+    input[type=checkbox] {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<div class="panel-body">
+
+    <h2>Donanım Bakım Kaydı Ekle</h2>
+    <br />
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+
+
+
+                @using (Html.BeginForm("Duzelt", "DonanimBakim", FormMethod.Post))
+                {
+                    <table border="1">
+
+                        <tr>
+                            <td width=100 height="25" colspan="4" align=center valign=middle><b>KULLANICI ADI SOYADI</b></td>
+
+                            <td width=100 colspan="4" align="center" valign=middle>  @Html.TextBoxFor(x => x.Kullanici, new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td width=300 height="25" colspan="4" align=center valign=middle><b>DEPARTMANI</b></td>
+
+                            <td width=300 colspan="4" align="center" valign=middle>  @Html.TextBoxFor(x => x.Departman, new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td width=600 height="40" colspan="8" align=center valign=middle><b>KONTROLLER</b></td>
+
+                        </tr>
+
+                        <tr>
+                            <td width=150 colspan="2" height="25" align=center valign=middle><b>1.Periyot(Mayıs-Haziran)</b></td>
+
+
+                            <td width=150 colspan="2" height="25" align=center valign=middle><b>2.Periyot(Kasım-Aralık)</b></td>
+
+
+                            <td width=150 colspan="2" height="25" align=center valign=middle><b>Temizlik/Bakım</b></td>
+
+
+                            <td width=150 colspan="2" height="25" align=center valign=middle><b>Veri Yedeği</b></td>
+
+                        </tr>
+                        <tr>
+                            <td width=150 colspan="2" height="25" align=center valign=middle> @Html.CheckBoxFor(x => x.Periyot1)</td>
+
+
+                            <td width=150 colspan="2" height="25" align=center valign=middle> @Html.CheckBoxFor(x => x.Periyot2)</td>
+
+
+                            <td width=150 colspan="2" height="25" align=center valign=middle> @Html.CheckBoxFor(x => x.TemizlikBakim)</td>
+
+
+                            <td width=150 colspan="2" height="25" align=center valign=middle>@Html.CheckBoxFor(x => x.Yedek)</td>
+
+                        </tr>
+                        <tr>
+                            <td width=100 height="25" colspan="2" align=center valign=middle><b>Sorumlu</b></td>
+
+
+
+
+                            <td width=500 height="25" colspan="6" align=center valign=middle>
+                                @Html.DropDownListFor(
+                                x => x.Sorumlu,
+                                new SelectList(new List<Object>
+
+                                      {
+                                    new { value = 0 , text = ""},
+                                    new { value = 1 , text = "ERHAN GÜZEL"  },
+                                   new { value = 2 , text = "YUSUF KIZIL"
+                        }
+
+
+                                    }, "text", "text"), new { @class = "form-control" })
+
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <br />
+                    <button class="btn btn-success">Kaydet</button>
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

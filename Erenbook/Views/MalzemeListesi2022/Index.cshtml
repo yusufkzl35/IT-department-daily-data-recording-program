@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Erenbook.Models.MalzemeListesi2022>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_erenbook.cshtml";
+}
+
+<br />
+
+
+
+<div class="container-fluid">
+
+    <div class="row mb-2">
+        <div class="col-sm-10">
+            <h3>Kritik Yedek Parça Listesi</h3>
+
+        </div>
+        @using (Html.BeginForm("Excel", "MalzemeListesi2022", FormMethod.Post))
+        {
+            <input type="submit" value="Excel" class="btn btn-success" />
+        }
+    </div>
+
+</div>
+<br />
+
+<div class="container-fluid">
+
+    <div class="row mb-2">
+        <div class="col-sm-9">
+
+
+        </div>
+        <h5><b>F 293 Rev.0/ 02.08.2022</b></h5>
+    </div>
+
+</div>
+
+
+
+<br />
+
+<div class="panel-body">
+
+    <div>
+        <a href="@Url.Content("~/MalzemeListesi2022/ekle")" class="btn btn-success btn-xs"><span class="btn btn-success">Malzeme Ekle</span></a>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>@Html.ActionLink("Malzemeler", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                        <th>@Html.ActionLink("Kritik Stok Miktarı", "Index", new { sortOrder = ViewBag.KSMiktariSortParm, currentFilter = ViewBag.currentFilter })</th>
+                        <th>@Html.ActionLink("Hazır Miktar", "Index", new { sortOrder = ViewBag.HazirMiktarSortParm, currentFilter = ViewBag.currentFilter })</th>
+                        <th>@Html.ActionLink("Sipariş Miktarı", "Index", new { sortOrder = ViewBag.SprsMiktariSortParm, currentFilter = ViewBag.currentFilter })</th>
+                        <th>@Html.ActionLink("Güncelle", "Index", new { sortOrder = ViewBag.guncelleSortParm, currentFilter = ViewBag.currentFilter })</th>
+
+                    </tr>
+
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <th>@x.id</th>
+                            <th>@x.MlzmListesi</th>
+                            <td>@x.KSMiktari</td>
+                            <td>@x.HazirMiktar</td>
+
+                            <td>@x.SprsMiktari</td>
+
+                            <td> <a href="/MalzemeListesi2022/guncelle/@x.id" class="btn btn-primary">Düzelt</a></td>
+
+                        </tr>
+
+                    }
+
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

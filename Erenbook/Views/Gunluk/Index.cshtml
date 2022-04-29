@@ -1,0 +1,223 @@
+﻿
+
+
+@using PagedList
+@using PagedList.Mvc
+@using Erenbook.Models
+@model IPagedList<Gunluk>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_erenbook.cshtml";
+}
+
+<br />
+
+<style>
+    input[type=checkbox] {
+        width: 30px;
+        height: 30px
+    }
+
+    
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #dee2e6;
+        text-align: center;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="row mb-2">
+        <div class="col-sm-10">
+
+
+        </div>
+        @Html.ActionLink("Yapılan İş Ekle", "ekle", null, new { @class = "btn btn-success" })
+    </div>
+
+</div>
+
+
+@using (Html.BeginForm("Excel", "Gunluk", FormMethod.Post))
+{
+    <input type="submit" value="Excel" class="btn btn-success" />
+    <!-- <input type="button" onclick="printDiv('printableArea')" value="PDF" class="btn btn-danger" /> -->
+}
+<br />
+
+<!-- <div id="printableArea">-->
+<div class="panel-body">
+
+    @*<p>
+        @using (Html.BeginForm("Index", "Gunluk", FormMethod.Get))
+        {
+            <input type="text" name="search" placeholder="Ad-Soyad,Donanım  Ara" />
+            <input type="submit" name="submit" placeholder="ara" />
+
+        }
+    </p>*@
+
+    <h3>Günlük Yapılan İşlemler</h3>
+
+    <br />
+    <br />
+
+    @using (Html.BeginForm("index", "Gunluk"))
+    {
+        <div class="pull-right col-md-8" style="margin-top:25px;">
+
+            <div class="col-md-5">
+                <input type="text" class="form-control pull-right" placeholder="Ad-Soyad,Donanım ara" name="aranan">
+            </div>
+
+            <br />
+
+
+
+            <div class="col-md-4">
+
+                <input type="submit" name="ara" value="Arama Yap" class="btn btn-primary pull-right"><br><br>
+                <a class="btn btn-primary pull-right" href="/Gunluk/Index/">Kayıtlara Dön</a>
+
+            </div>
+
+        </div>
+
+    }
+    <br />
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+
+
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Html.ActionLink("İşlem Başlangıç Tarihi", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("İşlem Başlangıç Saati", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+
+                            <th>@Html.ActionLink("Adı Soyadı", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("Departmanı", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("Arıza Türü", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("Kullanılan Malzeme/Yöntem Vb.", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("İşlem Bitiş Tarihi", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("İşlem Bitiş Saati", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+
+                            <th>@Html.ActionLink("Toplam Geçen Süre", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+
+                            <th>@Html.ActionLink("Yapılan İşlem", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+                            <th>@Html.ActionLink("Güncelle", "Index", new { sortOrder = ViewBag.MlzmListesiSortParm, currentFilter = ViewBag.currentFilter })</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="TarihBaslangic-@item.id">
+                                    @(item.TarihBaslangic.ToString("dd/MM/yyyy"))
+                                </td>
+
+                                <td class="Ilk1-@item.id">
+                                    @Html.DisplayFor(modelItem => item.Ilk1)
+                                </td>
+
+                                <td class="AdSoyad-@item.id">
+                                    @Html.DisplayFor(modelItem => item.AdSoyad)
+                                </td>
+
+                                <td class="Bolum-@item.id">
+
+                                    @Html.DisplayFor(modelItem => item.Bolum)
+                                </td>
+
+                                <td class="ArizaTuru-@item.id">
+                                    @Html.DisplayFor(modelItem => item.ArizaTuru)
+                                </td>
+
+                                <td class="Donanım-@item.id">
+                                    @Html.DisplayFor(modelItem => item.Donanım)
+                                </td>
+
+
+                                <td class="TarihBitis-@item.id">
+                                    @(item.TarihBitis.ToString("dd/MM/yyyy"))
+                                </td>
+                                <td class="Son1-@item.id">
+                                    @Html.DisplayFor(modelItem => item.Son1)
+                                </td>
+                                <td class="GecenSure-@item.id">
+                                    @Html.DisplayFor(modelItem => item.GecenSure)
+                                </td>
+
+
+
+
+                                <td class="YapilanIslem-@item.id">
+                                    @Html.DisplayFor(modelItem => item.YapilanIslem)
+                                </td>
+
+
+
+                                <td>
+                                    @Html.ActionLink("Güncelle", "guncelle", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+@*<nav aria-label="...">
+    <ul class="pagedList pagination pagination-lg">
+        <li class="page-item active" aria-current="page">
+            <h4> @Html.PagedListPager(Model, i => Url.Action("Index", "Gunluk", new { i, search = Request.QueryString["search"] }))</h4>
+        </li>
+    </ul>
+</nav>*@
+
+
+<nav aria-label="...">
+    <ul class="pagedList pagination pagination-lg">
+        <li class="page-item active" aria-current="page">
+            <h4>  @Html.PagedListPager(Model, sayfa => Url.Action("index", new { sayfa }), PagedListRenderOptions.Classic)</h4>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+
+
+
+
+
+
+
+
